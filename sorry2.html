@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to right, #2e1d60, #4b2e83);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden; /* Prevent scrollbar from appearing */
+            position: relative;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 24px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #ff66b2, #ffbc00);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Falling flower animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .falling-object {
+            position: absolute;
+            top: -10%;
+            font-size: 24px;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: fall 4s linear infinite;
+        }
+
+        .flower {
+            font-size: 30px;
+            color: #FF69B4; /* Pink flower color */
+        }
+
+        .falling-object:nth-child(even) {
+            animation-duration: 3s;
+        }
+
+        .falling-object:nth-child(odd) {
+            animation-duration: 5s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>Thank You!</h1>
+        <p>Your forgiveness means the world to me. I promise to cherish it and work hard to make things right.</p>
+        <p>Let's move forward together!</p>
+        <button class="button" onclick="goBack()">Go Back</button>
+    </div>
+
+    <!-- Falling Objects (Flowers) will be inserted here -->
+    <div id="falling-container"></div>
+
+    <script>
+        // Create falling flowers effect
+        function createFallingFlowers() {
+            const container = document.getElementById('falling-container');
+            const numberOfFlowers = 30; // Increase the number for faster effect
+
+            for (let i = 0; i < numberOfFlowers; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('falling-object', 'flower');
+                flower.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+                flower.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random duration for each flower to fall at different speeds
+                flower.style.fontSize = `${Math.random() * 20 + 20}px`; // Random flower size
+                flower.textContent = "🌸"; // Flower emoji
+                
+                container.appendChild(flower);
+            }
+        }
+
+        // Call the function to create the falling flowers when the page loads
+        window.onload = createFallingFlowers;
+
+        // Function to handle the "Go Back" button
+        function goBack() {
+            // Attempt to close the window
+            window.close(); // Attempt to close the window
+
+            // If the window cannot be closed, go to the previous page or a specific URL
+            if (!window.closed) {
+                if (document.referrer) {
+                    window.history.back(); // Go back to the previous page
+                } else {
+                    window.location.href = 'sorry.html'; // Redirect to sorry.html if no history
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

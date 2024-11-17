@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apology Card Stack Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to right, #2e1d60, #4b2e83);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/diamond-weave.png') repeat;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            width: 80%;
+            height: 80%;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
+            padding: 50px 30px;
+            box-shadow: 0px 15px 45px rgba(0, 0, 0, 0.15);
+            position: relative;
+            opacity: 0;
+            transform: translateX(100vw);
+            animation: cardEnter 2s ease-out forwards;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Added overflow hidden for better visuals */
+        }
+
+        @keyframes cardEnter {
+            0% { opacity: 0; transform: translateX(100vw); }
+            50% { opacity: 0.7; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.5s; }
+        .card:nth-child(2) { animation-delay: 1s; }
+        .card:nth-child(3) { animation-delay: 1.5s; }
+
+        .card h1 {
+            font-family: 'Playfair Display', serif;
+            color: #4b2e83; /* Changed to a darker color for better contrast */
+            font-size: 38px;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .card p {
+            color: #666; /* Darker gray text for readability */
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeIn 2s 1s forwards;
+        }
+
+        .card button {
+            background: linear-gradient(135deg, #ff66b2, #ffbc00);
+            color: #fff;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            transform: scale(1);
+            animation: buttonEnter 2s 1.5s forwards;
+        }
+
+        @keyframes buttonEnter {
+            to { transform: scale(1); }
+        }
+
+        .card button:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0px 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .heart {
+            font-size: 60px;
+            color: #ff5f73;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: transform 0.3s ease;
+        }
+
+        .message {
+            margin-top: 25px;
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: messageEnter 2s 1.5s forwards;
+        }
+
+        @keyframes messageEnter {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover .message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover .heart {
+            transform: scale(1.2);
+        }
+
+        .sparkle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.9);
+            animation: sparkle 2s infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .celebrate {
+            animation: celebrate 0.5s ease-in-out forwards;
+        }
+
+        @media (max-width: 800px) {
+            .card {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .card h1 {
+                font-size: 28px;
+            }
+
+            .card button {
+                width: 100%;
+                font-size: 18px;
+            }
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fall 3s forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="card" id="card1">
+            <div class="heart">💔</div>
+            <h1>I'm So Sorry</h1>
+            <p>I've hurt you, and I deeply regret my actions. Please accept my heartfelt apology, and let's heal together.</p>
+            <button onclick="showForgivenessMessage(1)">Forgive Me</button>
+            <div class="message">Your kindness means everything to me.</div>
+            <div class="sparkle"></div>
+        </div>
+
+        <div class="card" id="card2">
+            <div class="heart">💔</div>
+            <h1>Really Sorry</h1>
+            <p>I understand my mistake, and I wish I could take back the hurt I've caused. Please forgive me.</p>
+            <button onclick="showForgivenessMessage(2)">Forgive Me</button>
+            <div class="message">Thank you for your patience and love.</div>
+            <div class="sparkle"></div>
+        </div>
+
+        <div class="card" id="card3">
+            <div class="heart">💔</div>
+            <h1>Apology From the Heart</h1>
+            <p>I deeply regret my actions. Please allow me the chance to make it right.</p>
+            <button onclick="showForgivenessMessage(3)">Forgive Me</button>
+            <div class="message">You're truly amazing for considering my apology.</div>
+            <div class="sparkle"></div>
+        </div>
+    </div>
+
+    <script>
+        function showForgivenessMessage(cardNumber) {
+            const message = document.querySelector(`#card${cardNumber} .message`);
+            message.style.opacity = 1;
+            message.style.transform = 'translateY(0)';
+            const heart = document.querySelector(`#card${cardNumber} .heart`);
+            heart.innerHTML = "❤️";
+
+            // Add celebration class to the card
+            const card = document.getElementById(`card${cardNumber}`);
+            card.classList.add('celebrate');
+
+            // Create confetti effect
+            createConfetti();
+
+            // Play sound effect
+            const audio = new Audio('celebration-sound.mp3'); // Replace with your sound file
+            audio.play();
+
+            // Remove the class after animation to allow re-triggering
+            setTimeout(() => {
+                card.classList.remove('celebrate');
+            }, 500);
+
+            // Redirect if it's the 3rd card
+            if (cardNumber === 3) {
+                setTimeout(() => {
+                    window.location.href = "sorry2.html"; // Replace with your target HTML file
+                }, 1500); // Wait for the animation to finish before redirecting
+            }
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+    </script>
+
+</body>
+</html>
